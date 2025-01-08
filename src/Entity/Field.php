@@ -17,13 +17,13 @@ class Field
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $name;
 
     #[ORM\Column]
-    private ?int $area = null;
+    private ?int $area;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $notes = null;
+    private ?string $notes;
 
     /**
      * @var Collection<int, LandParcel>
@@ -37,8 +37,15 @@ class Field
     #[ORM\OneToMany(targetEntity: FieldAction::class, mappedBy: 'field')]
     private Collection $fieldActions;
 
-    public function __construct()
+    public function __construct(
+        string $name,
+        int $area,
+        ?string $notes = null
+    )
     {
+        $this->name = $name;
+        $this->area = $area;
+        $this->notes = $notes;
         $this->landParcels = new ArrayCollection();
         $this->fieldActions = new ArrayCollection();
     }
@@ -53,35 +60,14 @@ class Field
         return $this->name;
     }
 
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function getArea(): ?int
     {
         return $this->area;
     }
 
-    public function setArea(int $area): static
-    {
-        $this->area = $area;
-
-        return $this;
-    }
-
     public function getNotes(): ?string
     {
         return $this->notes;
-    }
-
-    public function setNotes(?string $notes): static
-    {
-        $this->notes = $notes;
-
-        return $this;
     }
 
     /**
