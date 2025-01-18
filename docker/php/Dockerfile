@@ -26,4 +26,4 @@ RUN docker-php-ext-install \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set the working directory
-WORKDIR /var/www/html
+WORKDIR /var/www
