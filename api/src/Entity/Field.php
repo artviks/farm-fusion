@@ -10,19 +10,18 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FieldRepository::class)]
-#[ApiResource]
 class Field
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column]
-    private ?int $area = null;
+    private int $size;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
@@ -55,14 +54,14 @@ class Field
         return $this;
     }
 
-    public function getArea(): ?int
+    public function getSize(): ?int
     {
-        return $this->area;
+        return $this->size;
     }
 
-    public function setArea(int $area): static
+    public function setSize(int $size): static
     {
-        $this->area = $area;
+        $this->size = $size;
 
         return $this;
     }
