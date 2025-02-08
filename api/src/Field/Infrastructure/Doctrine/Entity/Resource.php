@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Field\Infrastructure\Doctrine\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\ResourceRepository;
+use App\Field\Infrastructure\Doctrine\Repository\ResourceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ResourceRepository::class)]
-#[ApiResource]
 class Resource
 {
     #[ORM\Id]

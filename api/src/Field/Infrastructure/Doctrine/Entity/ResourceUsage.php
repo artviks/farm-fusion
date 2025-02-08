@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Field\Infrastructure\Doctrine\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\ResourceUsageRepository;
+use App\Field\Infrastructure\Doctrine\Repository\ResourceUsageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ResourceUsageRepository::class)]
-#[ApiResource]
 class ResourceUsage
 {
     #[ORM\Id]

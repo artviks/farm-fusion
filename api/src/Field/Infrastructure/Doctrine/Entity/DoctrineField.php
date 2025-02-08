@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Entity;
+namespace App\Field\Infrastructure\Doctrine\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\FieldRepository;
+use App\Field\Domain\Entity\Field;
+use App\Field\Infrastructure\Doctrine\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FieldRepository::class)]
-class Field
+class DoctrineField
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private string $id;
 
     #[ORM\Column(length: 255)]
     private string $name;
@@ -24,7 +23,7 @@ class Field
     private int $size;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $notes = null;
+    private ?string $notes;
 
     /**
      * @var Collection<int, Action>
@@ -32,50 +31,27 @@ class Field
     #[ORM\OneToMany(targetEntity: Action::class, mappedBy: 'Field')]
     private Collection $actions;
 
-    public function __construct()
-    {
+    private function __construct(
+        string $id,
+        string $name,
+        int $size,
+        ?string $notes,
+    ) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->size = $size;
+        $this->notes = $notes;
         $this->actions = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public static function createFromField(Field $field): self
     {
-        return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSize(): ?int
-    {
-        return $this->size;
-    }
-
-    public function setSize(int $size): static
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function getNotes(): ?string
-    {
-        return $this->notes;
-    }
-
-    public function setNotes(?string $notes): static
-    {
-        $this->notes = $notes;
-
-        return $this;
+        return new self(
+            $field->id,
+            $field->name,
+            $field->size,
+            $field->notes,
+        );
     }
 
     /**

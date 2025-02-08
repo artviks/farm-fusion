@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Field\Infrastructure\Doctrine\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\ActionRepository;
+use App\Field\Infrastructure\Doctrine\Repository\ActionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActionRepository::class)]
-#[ApiResource]
 class Action
 {
     #[ORM\Id]
@@ -20,7 +18,7 @@ class Action
 
     #[ORM\ManyToOne(inversedBy: 'actions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Field $Field = null;
+    private ?DoctrineField $Field = null;
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
@@ -50,12 +48,12 @@ class Action
         return $this->id;
     }
 
-    public function getField(): ?Field
+    public function getField(): ?DoctrineField
     {
         return $this->Field;
     }
 
-    public function setField(?Field $Field): static
+    public function setField(?DoctrineField $Field): static
     {
         $this->Field = $Field;
 

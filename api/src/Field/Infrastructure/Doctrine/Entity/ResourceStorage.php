@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Field\Infrastructure\Doctrine\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\ResourceStorageRepository;
+use App\Field\Infrastructure\Doctrine\Repository\ResourceStorageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ResourceStorageRepository::class)]
-#[ApiResource]
 class ResourceStorage
 {
     #[ORM\Id]
