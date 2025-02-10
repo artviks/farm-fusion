@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Field\Infrastructure\Doctrine\Repository;
+namespace App\Field\Infrastructure\Persistance\Doctrine\Repository;
 
-use App\Field\Infrastructure\Doctrine\Entity\Resource;
+use App\Field\Infrastructure\Persistance\Doctrine\Entity\ResourceUsage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Resource>
+ * @extends ServiceEntityRepository<ResourceUsage>
  */
-class ResourceRepository extends ServiceEntityRepository
+class ResourceUsageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Resource::class);
+        parent::__construct($registry, ResourceUsage::class);
     }
 
     //    /**
-    //     * @return Resource[] Returns an array of Resource objects
+    //     * @return ResourceUsage[] Returns an array of ResourceUsage objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ResourceRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Resource
+    //    public function findOneBySomeField($value): ?ResourceUsage
     //    {
     //        return $this->createQueryBuilder('r')
     //            ->andWhere('r.exampleField = :val')

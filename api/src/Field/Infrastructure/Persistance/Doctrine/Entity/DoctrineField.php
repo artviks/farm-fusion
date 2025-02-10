@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Field\Infrastructure\Doctrine\Entity;
+namespace App\Field\Infrastructure\Persistance\Doctrine\Entity;
 
 use App\Field\Domain\Entity\Field;
-use App\Field\Infrastructure\Doctrine\Repository\FieldRepository;
+use App\Field\Infrastructure\Persistance\Doctrine\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -31,27 +31,65 @@ class DoctrineField
     #[ORM\OneToMany(targetEntity: Action::class, mappedBy: 'Field')]
     private Collection $actions;
 
-    private function __construct(
-        string $id,
-        string $name,
-        int $size,
-        ?string $notes,
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->size = $size;
-        $this->notes = $notes;
+    private function __construct() {
         $this->actions = new ArrayCollection();
     }
 
     public static function createFromField(Field $field): self
     {
-        return new self(
-            $field->id,
-            $field->name,
-            $field->size,
-            $field->notes,
-        );
+        return (new self())
+            ->setId($field->id)
+            ->setName($field->name)
+            ->setSize($field->size)
+            ->setNotes($field->notes);
+    }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function size(): int
+    {
+        return $this->size;
+    }
+
+    public function setSize(int $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function notes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?string $notes): self
+    {
+        $this->notes = $notes;
+
+        return $this;
     }
 
     /**

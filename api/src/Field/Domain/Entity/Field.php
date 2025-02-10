@@ -22,12 +22,10 @@ class Field
         return new self(Uuid::generate(), $name, $size, $notes);
     }
 
-    // TODO: Add a method for existing field creation
-    // public static function createExisting(Uuid $id, string $name, int $size, string $notes): self
-    // {
-    //     return new self($id, $name, $size, $notes);
-    // }
-
+     public static function create(string $id, string $name, int $size, string $notes): self
+     {
+         return new self(Uuid::fromString($id), $name, $size, $notes);
+     }
 
     public function addTask(FieldAction $task): void
     {

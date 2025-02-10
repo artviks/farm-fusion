@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Field\Infrastructure\Doctrine\Entity;
+namespace App\Field\Infrastructure\Persistance\Doctrine\Entity;
 
-use App\Field\Infrastructure\Doctrine\Repository\ResourceUsageRepository;
+use App\Field\Infrastructure\Persistance\Doctrine\Repository\ResourceUsageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ResourceUsageRepository::class)]

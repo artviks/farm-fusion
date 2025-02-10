@@ -13,7 +13,7 @@ readonly class AddFieldService
 
     public function execute(AddFieldRequest $request): void
     {
-        $field = Field::create(
+        $field = Field::createNew(
             $request->name,
             $request->size,
             $request->notes,
