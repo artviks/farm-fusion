@@ -3,7 +3,7 @@
 namespace App\Field\Application\UseCases\AddField;
 
 use App\Field\Domain\Entity\Field;
-use App\Field\Domain\FieldRepositoryInterface;
+use App\Field\Domain\Repository\FieldRepositoryInterface;
 
 readonly class AddFieldService
 {

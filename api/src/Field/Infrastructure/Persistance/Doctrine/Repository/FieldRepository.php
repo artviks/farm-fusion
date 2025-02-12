@@ -3,7 +3,7 @@
 namespace App\Field\Infrastructure\Persistance\Doctrine\Repository;
 
 use App\Field\Domain\Entity\Field;
-use App\Field\Domain\FieldRepositoryInterface;
+use App\Field\Domain\Repository\FieldRepositoryInterface;
 use App\Field\Infrastructure\Persistance\Doctrine\Entity\DoctrineField;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

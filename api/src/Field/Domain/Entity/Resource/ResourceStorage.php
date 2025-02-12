@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Field\Domain\Resource;
+namespace App\Field\Domain\Entity\Resource;
 
 readonly class ResourceStorage
 {

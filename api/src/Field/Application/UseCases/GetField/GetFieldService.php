@@ -2,7 +2,7 @@
 
 namespace App\Field\Application\UseCases\GetField;
 
-use App\Field\Domain\FieldRepositoryInterface;
+use App\Field\Domain\Repository\FieldRepositoryInterface;
 use FieldDTO;
 
 readonly class GetFieldService
