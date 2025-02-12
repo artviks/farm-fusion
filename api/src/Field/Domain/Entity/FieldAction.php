@@ -2,21 +2,39 @@
 
 namespace App\Field\Domain\Entity;
 
-use App\Field\Domain\Resource\ResourceUsage;
+use App\Common\Uuid;
+use App\Field\Domain\Entity\Resource\ResourceUsage;
+use DateTimeImmutable;
+use DateTimeInterface;
 
 class FieldAction
 {
     /** @var ResourceUsage[] */
     private array $resourceUsages = [];
 
-    public function __construct(
-        public readonly string $id,
+    public readonly DateTimeInterface $createdAt;
+
+    private function __construct(
+        public readonly Uuid $id,
         public readonly string $fieldId,
         public readonly string $type,
-        public readonly string $completedAt,
-        public readonly string $startedAt,
+        public readonly ?DateTimeInterface $completedAt,
         public readonly ?string $notes,
-    ) {}
+    ) {
+        $this->createdAt = new DateTimeImmutable();
+    }
+
+    public static function new(Field $field, string $type, ?DateTimeInterface $completedAt, ?string $notes): self
+    {
+        return new self(
+            Uuid::generate(),
+            $field->id,
+            $type,
+            $completedAt,
+            $notes,
+        );
+    }
+
 
     public function useResource(string $resourceId, int $usedQuantity): void
     {
