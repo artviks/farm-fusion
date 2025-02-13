@@ -6,7 +6,7 @@ use App\Common\Uuid;
 
 class Field
 {
-    /** @var FieldAction[] */
+    /** @var Action[] */
     private array $actions = [];
 
     private function __construct(
@@ -27,7 +27,7 @@ class Field
          return new self(Uuid::fromString($id), $name, $size, $notes);
      }
 
-    public function addAction(FieldAction $task): void
+    public function addAction(Action $task): void
     {
         $this->actions[] = $task;
     }

@@ -26,9 +26,9 @@ class DoctrineField
     private ?string $notes;
 
     /**
-     * @var Collection<int, Action>
+     * @var Collection<int, DoctrineAction>
      */
-    #[ORM\OneToMany(targetEntity: Action::class, mappedBy: 'Field')]
+    #[ORM\OneToMany(targetEntity: DoctrineAction::class, mappedBy: 'Field')]
     private Collection $actions;
 
     private function __construct() {
@@ -93,14 +93,14 @@ class DoctrineField
     }
 
     /**
-     * @return Collection<int, Action>
+     * @return Collection<int, DoctrineAction>
      */
     public function getActions(): Collection
     {
         return $this->actions;
     }
 
-    public function addAction(Action $action): static
+    public function addAction(DoctrineAction $action): static
     {
         if (!$this->actions->contains($action)) {
             $this->actions->add($action);
@@ -110,7 +110,7 @@ class DoctrineField
         return $this;
     }
 
-    public function removeAction(Action $action): static
+    public function removeAction(DoctrineAction $action): static
     {
         if ($this->actions->removeElement($action)) {
             // set the owning side to null (unless already changed)

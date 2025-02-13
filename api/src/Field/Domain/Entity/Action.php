@@ -7,7 +7,7 @@ use App\Field\Domain\Entity\Resource\ResourceUsage;
 use DateTimeImmutable;
 use DateTimeInterface;
 
-class FieldAction
+class Action
 {
     /** @var ResourceUsage[] */
     private array $resourceUsages = [];

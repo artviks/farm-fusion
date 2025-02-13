@@ -15,7 +15,7 @@ class ResourceUsage
 
     #[ORM\ManyToOne(inversedBy: 'resourceUsages')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Action $Action = null;
+    private ?DoctrineAction $Action = null;
 
     #[ORM\ManyToOne(inversedBy: 'resourceUsages')]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,12 +29,12 @@ class ResourceUsage
         return $this->id;
     }
 
-    public function getAction(): ?Action
+    public function getAction(): ?DoctrineAction
     {
         return $this->Action;
     }
 
-    public function setAction(?Action $Action): static
+    public function setAction(?DoctrineAction $Action): static
     {
         $this->Action = $Action;
 
