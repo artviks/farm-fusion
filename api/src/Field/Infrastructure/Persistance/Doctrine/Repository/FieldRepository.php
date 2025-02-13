@@ -3,6 +3,7 @@
 namespace App\Field\Infrastructure\Persistance\Doctrine\Repository;
 
 use App\Field\Domain\Entity\Field;
+use App\Field\Domain\Exception\FieldNotFoundException;
 use App\Field\Domain\Repository\FieldRepositoryInterface;
 use App\Field\Infrastructure\Persistance\Doctrine\Entity\DoctrineField;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -30,8 +31,7 @@ class FieldRepository extends ServiceEntityRepository implements FieldRepository
         $doctrineField = $this->find($id);
 
         if ($doctrineField === null) {
-            // TODO: Create a custom exception
-            throw new \RuntimeException('Field not found');
+            throw FieldNotFoundException::forId($id);
         }
 
         return Field::create(
@@ -47,8 +47,7 @@ class FieldRepository extends ServiceEntityRepository implements FieldRepository
         $doctrineField = $this->find($field->id);
 
         if ($doctrineField === null) {
-            // TODO: Create a custom exception
-            throw new \RuntimeException('Field not found');
+            throw FieldNotFoundException::forId($field->id);
         }
 
         $doctrineField
