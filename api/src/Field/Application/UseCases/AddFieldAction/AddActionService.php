@@ -10,20 +10,20 @@ readonly class AddActionService
 {
     public function __construct(
         private FieldRepositoryInterface  $fieldRepository,
-        private ActionRepositoryInterface $fieldActionRepository,
+        private ActionRepositoryInterface $actionRepository,
     ) {}
 
     public function execute(AddActionRequest $request): void
     {
         $field = $this->fieldRepository->get($request->fieldId);
 
-        $fieldAction = Action::new(
+        $action = Action::new(
             $field,
             $request->type,
             $request->completedAt,
             $request->notes,
         );
 
-        $this->fieldActionRepository->add($fieldAction);
+        $this->actionRepository->add($action);
     }
 }

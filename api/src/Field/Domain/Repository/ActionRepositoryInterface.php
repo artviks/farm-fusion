@@ -6,11 +6,7 @@ use App\Field\Domain\Entity\Action;
 
 interface ActionRepositoryInterface
 {
-    public function add(Action $fieldAction): void;
+    public function add(Action $action): void;
 
-    public function get(string $id): Action;
-
-    public function update(Action $fieldAction): void;
-
-    public function delete(string $id): void;
+    public function update(Action $action): void;
 }

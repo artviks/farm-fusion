@@ -16,7 +16,7 @@ class Action
 
     private function __construct(
         public readonly Uuid $id,
-        public readonly string $fieldId,
+        public readonly Field $field,
         public readonly string $type,
         public readonly ?DateTimeInterface $completedAt,
         public readonly ?string $notes,
@@ -28,7 +28,18 @@ class Action
     {
         return new self(
             Uuid::generate(),
-            $field->id,
+            $field,
+            $type,
+            $completedAt,
+            $notes,
+        );
+    }
+
+    public static function create(string $id, Field $field, string $type, ?DateTimeInterface $completedAt, ?string $notes): self
+    {
+        return new self(
+            Uuid::fromString($id),
+            $field,
             $type,
             $completedAt,
             $notes,

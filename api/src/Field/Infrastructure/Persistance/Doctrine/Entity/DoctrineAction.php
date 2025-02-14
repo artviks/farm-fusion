@@ -2,7 +2,9 @@
 
 namespace App\Field\Infrastructure\Persistance\Doctrine\Entity;
 
+use App\Field\Domain\Entity\Action;
 use App\Field\Infrastructure\Persistance\Doctrine\Repository\ActionRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -14,20 +16,17 @@ class DoctrineAction
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private string $id;
 
     #[ORM\ManyToOne(inversedBy: 'actions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?DoctrineField $Field = null;
+    private DoctrineField $Field;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    private string $type;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $completedAt = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $startedAt = null;
+    private ?DateTimeInterface $completedAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
@@ -38,29 +37,45 @@ class DoctrineAction
     #[ORM\OneToMany(targetEntity: ResourceUsage::class, mappedBy: 'Action')]
     private Collection $resourceUsages;
 
-    public function __construct()
-    {
+    private function __construct() {
         $this->resourceUsages = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public static function createFromAction(Action $action): self
+    {
+        return (new self())
+            ->setId($action->id)
+            ->setField(DoctrineField::createFromField($action->field))
+            ->setType($action->type)
+            ->setCompletedAt($action->completedAt)
+            ->setNotes($action->notes);
+    }
+
+    public function id(): string
     {
         return $this->id;
     }
 
-    public function getField(): ?DoctrineField
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function field(): DoctrineField
     {
         return $this->Field;
     }
 
-    public function setField(?DoctrineField $Field): static
+    public function setField(DoctrineField $Field): static
     {
         $this->Field = $Field;
 
         return $this;
     }
 
-    public function getType(): ?string
+    public function type(): string
     {
         return $this->type;
     }
@@ -72,31 +87,19 @@ class DoctrineAction
         return $this;
     }
 
-    public function getCompletedAt(): ?\DateTimeInterface
+    public function completedAt(): ?DateTimeInterface
     {
         return $this->completedAt;
     }
 
-    public function setCompletedAt(\DateTimeInterface $completedAt): static
+    public function setCompletedAt(DateTimeInterface $completedAt): static
     {
         $this->completedAt = $completedAt;
 
         return $this;
     }
 
-    public function getStartedAt(): ?\DateTimeInterface
-    {
-        return $this->startedAt;
-    }
-
-    public function setStartedAt(\DateTimeInterface $startedAt): static
-    {
-        $this->startedAt = $startedAt;
-
-        return $this;
-    }
-
-    public function getNotes(): ?string
+    public function notes(): ?string
     {
         return $this->notes;
     }
@@ -111,7 +114,7 @@ class DoctrineAction
     /**
      * @return Collection<int, ResourceUsage>
      */
-    public function getResourceUsages(): Collection
+    public function resourceUsages(): Collection
     {
         return $this->resourceUsages;
     }

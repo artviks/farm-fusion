@@ -3,8 +3,10 @@
 namespace App\Field\Infrastructure\Persistance\Doctrine\Repository;
 
 use App\Field\Domain\Entity\Action;
+use App\Field\Domain\Exception\ActionNotFoundException;
 use App\Field\Domain\Repository\ActionRepositoryInterface;
 use App\Field\Infrastructure\Persistance\Doctrine\Entity\DoctrineAction;
+use App\Field\Infrastructure\Persistance\Doctrine\Entity\DoctrineField;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,23 +20,26 @@ class ActionRepository extends ServiceEntityRepository implements ActionReposito
         parent::__construct($registry, DoctrineAction::class);
     }
 
-    public function add(Action $fieldAction): void
+    public function add(Action $action): void
     {
-        // TODO: Implement add() method.
+        $this->getEntityManager()->persist(DoctrineAction::createFromAction($action));
+        $this->getEntityManager()->flush();
     }
 
-    public function get(string $id): Action
+    public function update(Action $action): void
     {
-        // TODO: Implement get() method.
-    }
+        $doctrineAction = $this->find($action->id);
 
-    public function update(Action $fieldAction): void
-    {
-        // TODO: Implement update() method.
-    }
+        if ($doctrineAction === null) {
+            throw ActionNotFoundException::forId($action->id);
+        }
 
-    public function delete(string $id): void
-    {
-        // TODO: Implement delete() method.
+        $doctrineAction
+            ->setField(DoctrineField::createFromField($action->field))
+            ->setType($action->type)
+            ->setCompletedAt($action->completedAt)
+            ->setNotes($action->notes);
+
+        $this->getEntityManager()->flush();
     }
 }
