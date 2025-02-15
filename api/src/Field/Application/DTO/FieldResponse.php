@@ -1,13 +1,16 @@
 <?php
 
-use App\Field\Domain\Entity\Field;
+namespace App\Field\Application\DTO;
 
-readonly class FieldDTO
+use App\Field\Domain\Entity\Field;
+use JsonSerializable;
+
+readonly class FieldResponse implements JsonSerializable
 {
     private function __construct(
-        public string $id,
-        public string $name,
-        public string $size,
+        public string  $id,
+        public string  $name,
+        public string  $size,
         public ?string $notes,
     ) {
     }
@@ -20,5 +23,10 @@ readonly class FieldDTO
             $field->size,
             $field->notes,
         );
+    }
+
+    public function jsonSerialize(): array
+    {
+        return get_object_vars($this);
     }
 }

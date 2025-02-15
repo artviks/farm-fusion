@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Field\Infrastructure\Persistance\Doctrine\Entity;
+namespace App\Field\Infrastructure\Persistence\Doctrine\Entity;
 
-use App\Field\Infrastructure\Persistance\Doctrine\Repository\ResourceRepository;
+use App\Field\Infrastructure\Persistence\Doctrine\Repository\ResourceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;

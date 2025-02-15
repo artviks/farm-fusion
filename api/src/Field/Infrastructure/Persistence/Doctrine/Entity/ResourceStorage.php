@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Field\Infrastructure\Persistance\Doctrine\Entity;
+namespace App\Field\Infrastructure\Persistence\Doctrine\Entity;
 
-use App\Field\Infrastructure\Persistance\Doctrine\Repository\ResourceStorageRepository;
+use App\Field\Infrastructure\Persistence\Doctrine\Repository\ResourceStorageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

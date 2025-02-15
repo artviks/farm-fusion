@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Field\Infrastructure\Persistance\Doctrine\Repository;
+namespace App\Field\Infrastructure\Persistence\Doctrine\Repository;
 
 use App\Field\Domain\Entity\Action;
 use App\Field\Domain\Exception\ActionNotFoundException;
 use App\Field\Domain\Repository\ActionRepositoryInterface;
-use App\Field\Infrastructure\Persistance\Doctrine\Entity\DoctrineAction;
-use App\Field\Infrastructure\Persistance\Doctrine\Entity\DoctrineField;
+use App\Field\Infrastructure\Persistence\Doctrine\Entity\DoctrineAction;
+use App\Field\Infrastructure\Persistence\Doctrine\Entity\DoctrineField;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

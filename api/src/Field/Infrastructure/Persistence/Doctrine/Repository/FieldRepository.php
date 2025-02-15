@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Field\Infrastructure\Persistance\Doctrine\Repository;
+namespace App\Field\Infrastructure\Persistence\Doctrine\Repository;
 
 use App\Field\Domain\Entity\Field;
 use App\Field\Domain\Exception\FieldNotFoundException;
 use App\Field\Domain\Repository\FieldRepositoryInterface;
-use App\Field\Infrastructure\Persistance\Doctrine\Entity\DoctrineField;
+use App\Field\Infrastructure\Persistence\Doctrine\Entity\DoctrineField;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

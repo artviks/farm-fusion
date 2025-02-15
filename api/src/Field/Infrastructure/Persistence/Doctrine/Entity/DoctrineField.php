@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Field\Infrastructure\Persistance\Doctrine\Entity;
+namespace App\Field\Infrastructure\Persistence\Doctrine\Entity;
 
 use App\Field\Domain\Entity\Field;
-use App\Field\Infrastructure\Persistance\Doctrine\Repository\FieldRepository;
+use App\Field\Infrastructure\Persistence\Doctrine\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -114,7 +114,7 @@ class DoctrineField
     {
         if ($this->actions->removeElement($action)) {
             // set the owning side to null (unless already changed)
-            if ($action->getField() === $this) {
+            if ($action->field() === $this) {
                 $action->setField(null);
             }
         }

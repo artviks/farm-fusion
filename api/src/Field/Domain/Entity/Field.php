@@ -17,7 +17,7 @@ class Field
     ) {
     }
 
-    public static function new(string $name, int $size, string $notes): self
+    public static function new(string $name, int $size, ?string $notes): self
     {
         return new self(Uuid::generate(), $name, $size, $notes);
     }

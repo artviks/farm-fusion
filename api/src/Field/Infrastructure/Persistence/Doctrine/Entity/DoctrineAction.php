@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Field\Infrastructure\Persistance\Doctrine\Entity;
+namespace App\Field\Infrastructure\Persistence\Doctrine\Entity;
 
 use App\Field\Domain\Entity\Action;
-use App\Field\Infrastructure\Persistance\Doctrine\Repository\ActionRepository;
+use App\Field\Infrastructure\Persistence\Doctrine\Repository\ActionRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,7 +20,7 @@ class DoctrineAction
 
     #[ORM\ManyToOne(inversedBy: 'actions')]
     #[ORM\JoinColumn(nullable: false)]
-    private DoctrineField $Field;
+    private ?DoctrineField $Field;
 
     #[ORM\Column(length: 255)]
     private string $type;
@@ -43,7 +43,7 @@ class DoctrineAction
 
     public static function createFromAction(Action $action): self
     {
-        return (new self())
+        return new self()
             ->setId($action->id)
             ->setField(DoctrineField::createFromField($action->field))
             ->setType($action->type)
@@ -68,7 +68,7 @@ class DoctrineAction
         return $this->Field;
     }
 
-    public function setField(DoctrineField $Field): static
+    public function setField(?DoctrineField $Field): static
     {
         $this->Field = $Field;
 
