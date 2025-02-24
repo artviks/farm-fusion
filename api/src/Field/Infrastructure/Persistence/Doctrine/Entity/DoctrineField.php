@@ -10,11 +10,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FieldRepository::class)]
+#[ORM\Table(name: 'fields')]
 class DoctrineField
 {
     #[ORM\Id]
     #[ORM\Column]
-    private string $id;
+    private string $fieldId;
 
     #[ORM\Column(length: 255)]
     private string $name;
@@ -37,7 +38,7 @@ class DoctrineField
 
     public static function createFromField(Field $field): self
     {
-        return (new self())
+        return new self()
             ->setId($field->id)
             ->setName($field->name)
             ->setSize($field->size)
@@ -46,12 +47,12 @@ class DoctrineField
 
     public function id(): string
     {
-        return $this->id;
+        return $this->fieldId;
     }
 
     public function setId(string $id): self
     {
-        $this->id = $id;
+        $this->fieldId = $id;
 
         return $this;
     }

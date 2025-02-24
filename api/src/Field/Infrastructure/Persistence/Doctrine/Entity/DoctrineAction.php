@@ -11,16 +11,17 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActionRepository::class)]
+#[ORM\Table(name: 'actions')]
 class DoctrineAction
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private string $id;
+    private string $actionId;
 
     #[ORM\ManyToOne(inversedBy: 'actions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?DoctrineField $Field;
+    private DoctrineField $Field;
 
     #[ORM\Column(length: 255)]
     private string $type;
@@ -53,12 +54,12 @@ class DoctrineAction
 
     public function id(): string
     {
-        return $this->id;
+        return $this->actionId;
     }
 
     public function setId(string $id): self
     {
-        $this->id = $id;
+        $this->actionId = $id;
 
         return $this;
     }
