@@ -1,4 +1,0 @@
-controllers:
-    resource: ../src/Field/Infrastructure/Presentation/Controller/
-    type: attribute
-    prefix: /api
