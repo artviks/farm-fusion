@@ -1,4 +1,3 @@
-
 services:
   php:
     container_name: farm-fusion-php
@@ -6,9 +5,9 @@ services:
       context: .
       dockerfile: php/Dockerfile
     volumes:
-      - ../api:/var/www/html
+      - ../farm-fusion-api:/var/www/html
     depends_on:
-      - database
+      - postgres
 
   nginx:
     container_name: farm-fusion-nginx
@@ -17,22 +16,33 @@ services:
       - "8080:80"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ../api:/var/www/html
+      - ../farm-fusion-api:/var/www/html
     depends_on:
       - php
 
-  database:
+  postgres:
     container_name: farm-fusion-postgres
     image: postgres:16-alpine
     environment:
       POSTGRES_DB: app
-      POSTGRES_PASSWORD: password
       POSTGRES_USER: app
+      POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:
       - ./db/data:/var/lib/postgresql/data:rw
 
-volumes:
-  database_data:
+  vue:
+    container_name: farm-fusion-vue
+    image: node:23-alpine
+    working_dir: /app
+    volumes:
+      - ../farm-fusion-vue:/app
+      # Optionally use a named volume to persist node_modules if needed
+      - /app/node_modules
+    ports:
+      - "5173:5173" 
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - php
 
