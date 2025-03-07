@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +22,11 @@ Route::post('/login', [LoginController::class, 'login']);
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
-    // Add protected routes here
+    // User management routes - accessible to all authenticated users
+    Route::get('/users', [UserController::class, 'index']);
+    
+    // Owner-only routes
+    Route::middleware('role:Owner')->group(function () {
+        Route::post('/users', [UserController::class, 'store']);
+    });
 }); 

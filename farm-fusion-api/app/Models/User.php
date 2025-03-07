@@ -66,4 +66,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'owner_id');
     }
+    
+    /**
+     * Check if the user is an owner.
+     */
+    public function isOwner(): bool
+    {
+        return $this->role === 'Owner';
+    }
+    
+    /**
+     * Check if the user is a worker.
+     */
+    public function isWorker(): bool
+    {
+        return $this->role === 'Worker';
+    }
 }
