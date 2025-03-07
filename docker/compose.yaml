@@ -27,10 +27,12 @@ services:
       POSTGRES_DB: app
       POSTGRES_USER: app
       POSTGRES_PASSWORD: password
+      POSTGRES_MULTIPLE_DATABASES: app_test
     ports:
       - "5432:5432"
     volumes:
       - ./db/data:/var/lib/postgresql/data:rw
+      - ./postgres/init:/docker-entrypoint-initdb.d
 
   vue:
     container_name: farm-fusion-vue

@@ -70,7 +70,7 @@ Throughout development, we can leverage a Large Language Model (LLM) as a coding
 ```text
 We have a new Laravel project for a farm management app. Now implement user authentication with roles. 
 1. Create a Laravel migration for updating a `users` table with columns: `role` (enum or string for "Owner" or "Worker"), and `owner_id` (nullable unsigned bigInteger foreign key to users.id, for worker's owner).
-2. Generate a Laravel User model (Eloquent) with fillable fields for name, email, password, role, owner_id. Include a relationship `owner()` self-referencing the User as owner (belongsTo) and a `workers()` relationship (hasMany to User for which this user is owner).
+2. Update a Laravel User model (Eloquent) with fillable fields for name, email, password, role, owner_id. Include a relationship `owner()` self-referencing the User as owner (belongsTo) and a `workers()` relationship (hasMany to User for which this user is owner).
 3. Implement a registration controller `Auth\\RegisterController` with a `register` method to create a new User. Assume this is for Owners signing up (set role = "Owner" and owner_id = null). Hash the password and return a JSON response (user data and token). 
 4. Implement a login controller `Auth\\LoginController` with a `login` method that checks credentials and returns an API token on success.
 5. Use Laravel Sanctum for authentication: update `User` model to use HasApiTokens and configure sanctum in `config/auth.php`. 

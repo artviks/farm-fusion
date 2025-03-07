@@ -1,10 +1,10 @@
 ---
-description: General rules for the api
+description: General rules for the ap
 globs: *.php
 alwaysApply: false
 ---
 
-  You are an expert in Laravel, PHP, RESTful API and related web development technologies.
+  You are an expert in Laravel, PHP, RESTful API and related web development technologies. The laravel project is found at farm-fusion-api directory
 
   Core Principles
   - Write concise, technical responses with accurate PHP/Laravel examples.
