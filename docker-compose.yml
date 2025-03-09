@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  # Laravel API Service
+  api:
+    build:
+      context: ./farm-fusion-api
+      dockerfile: ${DOCKER_ENV:-dev}.Dockerfile
+    container_name: farm_fusion_api
+    restart: unless-stopped
+    volumes:
+      - ./farm-fusion-api:/var/www/html
+      - api_vendor:/var/www/html/vendor
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-farm_fusion_api}
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+    depends_on:
+      - db
+    networks:
+      - farm_fusion_network
+
+  # Vue.js Frontend Service
+  frontend:
+    build:
+      context: ./farm-fusion-vue
+      dockerfile: ${DOCKER_ENV:-dev}.Dockerfile
+      args:
+        - NODE_ENV=${NODE_ENV:-development}
+    container_name: farm_fusion_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./farm-fusion-vue:/app
+      - frontend_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - VITE_API_URL=${VITE_API_URL:-http://localhost/api}
+    networks:
+      - farm_fusion_network
+
+  # Nginx Service
+  nginx:
+    image: nginx:alpine
+    container_name: farm_fusion_nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+      - "${NGINX_SSL_PORT:-443}:443"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+      - ./farm-fusion-api/public:/var/www/html/public
+      - frontend_build:/var/www/frontend
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - farm_fusion_network
+
+  # PostgreSQL Service
+  db:
+    image: postgres:15-alpine
+    container_name: farm_fusion_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-farm_fusion_api}
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    networks:
+      - farm_fusion_network
+
+networks:
+  farm_fusion_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  api_vendor:
+  frontend_node_modules:
+  frontend_build: 
